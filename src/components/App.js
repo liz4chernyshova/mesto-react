@@ -6,6 +6,7 @@ import PopupWithAvatar from './PopupWithAvatar';
 import PopupEditProfile from './PopupEditProfile';
 import PopupAddCard from './PopupAddCard';
 import ImagePopup from './ImagePupup';
+import PopupWithConfirm from './PopupWithConfirm';
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
@@ -45,15 +46,7 @@ function App() {
         <PopupEditProfile isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
         <PopupAddCard isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
         <ImagePopup card={selectedCard !== null && selectedCard} onClose={closeAllPopups}/>
-        <section className="popup popup-delete">
-          <div className="popup__container">
-            <form name="popupDelete" className="form" noValidate>
-              <button type="button" className="popup__close-btn" value=""><img className="popup__icon" alt="Крестик." src="<%=require('./images/close.svg')%>" /></button>
-              <h2 className="form__title">Вы уверены?</h2>
-              <button type="submit" className="form__save-btn">Да</button>
-            </form>
-          </div>
-        </section>
+        <PopupWithConfirm />
     </div>
   );
 }

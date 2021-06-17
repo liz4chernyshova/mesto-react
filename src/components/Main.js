@@ -10,11 +10,11 @@ export default function Main(props) {
 
     React.useEffect(() => {
         Promise.all([api.getUserInfo(), api.getInitialCards()])
-        .then((userData, initialCards) => {
+        .then(([userData, cards]) => {
             setUserName(userData.name);
             setUserDescription(userData.about);
             setUserAvatar(userData.avatar);
-            setCards(initialCards);
+            setCards(cards);
         })
         .catch((err) => {
             console.log(err);
@@ -37,11 +37,9 @@ export default function Main(props) {
                 <button type="button" className="profile__submit-btn" value="" onClick={props.onAddPlace}></button>
             </section>
             <section className="photo-elements">
-                <template id="template-element">
-                    {cards.map((card) => (
-                        <Card card={card} key={card._id} onCardClick={props.onCardClick} />
-                    ))}
-                </template>
+                {cards.map((card) => (
+                    <Card card={card} key={card._id} onCardClick={props.onCardClick} />
+                ))}
             </section>
         </main>  
     );
