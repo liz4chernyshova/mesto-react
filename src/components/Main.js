@@ -1,44 +1,29 @@
 import React from 'react';
-import api from '../utils/api';
 import Card from './Card';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 export default function Main(props) {
-    const [userName, setUserName] = React.useState('');
-    const [userDescription, setUserDescription] = React.useState('');
-    const [userAvatar, setUserAvatar] = React.useState('');
-    const [cards, setCards] = React.useState([]);
 
-    React.useEffect(() => {
-        Promise.all([api.getUserInfo(), api.getInitialCards()])
-        .then(([userData, cards]) => {
-            setUserName(userData.name);
-            setUserDescription(userData.about);
-            setUserAvatar(userData.avatar);
-            setCards(cards);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }, [])
+    const currentUser = React.useContext(CurrentUserContext);
 
     return (
         <main className="content">
             <section className="profile">
               <div className="profile__avatar-container" onClick={props.onEditAvatar}>
-                  <img className="profile__avatar" alt="Аватарка." src={userAvatar} />
+                  <img className="profile__avatar" alt="Аватарка." src={currentUser.avatar} />
               </div>
                 <div className="profile__info">
                     <div className="profile__redactor">
-                        <h1 className="profile__info-name">{userName}</h1>
+                        <h1 className="profile__info-name">{currentUser.name}</h1>
                         <button type="button" className="profile__redactor-btn" value="" onClick={props.onEditProfile} ></button>
                     </div>
-                    <p className="profile__info-description">{userDescription}</p>
+                    <p className="profile__info-description">{currentUser.about}</p>
                 </div>
                 <button type="button" className="profile__submit-btn" value="" onClick={props.onAddPlace}></button>
             </section>
             <section className="photo-elements">
-                {cards.map((card) => (
-                    <Card card={card} key={card._id} onCardClick={props.onCardClick} />
+                {props.cards.map((card) => (
+                    <Card card={card} key={card._id} onCardClick={props.onCardClick} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete}/>
                 ))}
             </section>
         </main>  

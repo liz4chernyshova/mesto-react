@@ -18,13 +18,13 @@ export class Api {
         .then(this._checkResponse)
     }
 
-    setUserInfo(name, about) {
+    setUserInfo(data) {
         return fetch(`${this._address}/users/me`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                name: name,
-                about: about
+                name: data.name,
+                about: data.about
             })
         })
         .then(this._checkResponse)
@@ -42,28 +42,20 @@ export class Api {
         .then(this._checkResponse)
     }
 
-    likeCard(id) {
+    likeCard(id, isLiked) {
         return fetch(`${this._address}/cards/likes/${id}`, {
-            method: 'PUT',
+            method: isLiked ? 'PUT': 'DELETE',
             headers: this._headers
         })
         .then(this._checkResponse)
     }
 
-    unLikeCard(id) {
-        return fetch(`${this._address}/cards/likes/${id}`, {
-            method: 'DELETE',
-            headers: this._headers
-        })
-        .then(this._checkResponse)
-    }
-
-    popupEditAvatar(link) {
+    setUserAvatar(data) {
         return fetch(`${this._address}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                avatar: link
+                avatar: data.avatar
             })
         })
         .then(this._checkResponse)

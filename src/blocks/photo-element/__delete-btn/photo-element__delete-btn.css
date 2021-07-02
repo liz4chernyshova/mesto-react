@@ -1,6 +1,6 @@
 .photo-element__delete-btn {
     position: absolute;
-    background-image: url(../../../images/plus.svg);
+    background-image: url(../../../images/delete.svg);
     cursor: pointer;
     top: 18px;
     right: 15px;
