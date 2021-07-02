@@ -1,7 +1,7 @@
 import PopupWithForm from './PopupWithForm';
 import React from 'react';
 
-export default function PopupWithAvatar(props) {
+export default function EditAvatarPopup(props) {
 
     const avatarRef = React.useRef('');
     

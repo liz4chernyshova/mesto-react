@@ -1,7 +1,7 @@
 import PopupWithForm from './PopupWithForm';
 import React from 'react';
 
-export default function PopupAddCard(props) {
+export default function AddPlacePopup(props) {
 
     const [title, setTitle] = React.useState('');
     const [link, setLink] = React.useState('');

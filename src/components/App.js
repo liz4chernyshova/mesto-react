@@ -2,9 +2,9 @@ import React from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithAvatar from './PopupWithAvatar';
-import PopupEditProfile from './PopupEditProfile';
-import PopupAddCard from './PopupAddCard';
+import EditAvatarPopup from './EditAvatarPopup';
+import EditProfilePopup from './EditProfilePopup';
+import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePupup';
 import PopupWithConfirm from './PopupWithConfirm';
 import api from '../utils/api';
@@ -126,9 +126,9 @@ function App() {
           onCardDelete={handleCardDelete}
           cards={cards}/>
         <Footer />
-        <PopupWithAvatar isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} isLoading={isLoading}/>
-        <PopupEditProfile onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} isLoading={isLoading}/>
-        <PopupAddCard isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} isLoading={isLoading}/>
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} isLoading={isLoading}/>
+        <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} isLoading={isLoading}/>
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} isLoading={isLoading}/>
         <ImagePopup card={selectedCard !== null && selectedCard} onClose={closeAllPopups}/>
         <PopupWithConfirm />
       </CurrentUserContext.Provider>
