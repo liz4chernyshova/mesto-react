@@ -5,7 +5,7 @@ import Footer from './Footer';
 import EditAvatarPopup from './EditAvatarPopup';
 import EditProfilePopup from './EditProfilePopup';
 import AddPlacePopup from './AddPlacePopup';
-import ImagePopup from './ImagePupup';
+import ImagePopup from './ImagePopup';
 import PopupWithConfirm from './PopupWithConfirm';
 import api from '../utils/api';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
@@ -17,7 +17,6 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCard] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState('');
 
   React.useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -31,7 +30,6 @@ function App() {
   }, []);
 
   function handleUpdateUser(data) {
-    setIsLoading('Сохранить...');
     api.setUserInfo(data)
       .then((userData) => {
         setCurrentUser(userData);
@@ -39,12 +37,10 @@ function App() {
       })
       .catch((err) => {
           console.log(err);
-      })
-      .finally(() => setIsLoading(''));
+      });
   }
 
   function handleUpdateAvatar(data) {
-    setIsLoading('Сохранить...');
     api.setUserAvatar(data)
     .then(userAvatar => {
       setCurrentUser(userAvatar);
@@ -52,12 +48,10 @@ function App() {
     })
     .catch((err) => {
         console.log(err);
-    })
-    .finally(() => setIsLoading(''));
+    });
   }
 
   function handleAddPlaceSubmit(data) {
-    setIsLoading('Сохранить...');
     api.addCard(data)
     .then((cardData) => {
       setCard([cardData, ...cards]);
@@ -65,8 +59,7 @@ function App() {
     })
     .catch((err) => {
         console.log(err);
-    })
-    .finally(() => setIsLoading(''));
+    });
   }
 
   function handleEditAvatarClick() {
@@ -126,9 +119,9 @@ function App() {
           onCardDelete={handleCardDelete}
           cards={cards}/>
         <Footer />
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} isLoading={isLoading}/>
-        <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} isLoading={isLoading}/>
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} isLoading={isLoading}/>
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
+        <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}/>
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit}/>
         <ImagePopup card={selectedCard !== null && selectedCard} onClose={closeAllPopups}/>
         <PopupWithConfirm />
       </CurrentUserContext.Provider>
